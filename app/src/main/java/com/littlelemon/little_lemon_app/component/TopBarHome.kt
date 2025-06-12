@@ -23,7 +23,7 @@ import com.littlelemon.little_lemon_app.R
 fun TopBarHome(navController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxWidth()
-            .padding(top = 30.dp, bottom = 35.dp),
+            .padding(top = 30.dp, bottom = 10.dp),
     ) {
 
         Image(
@@ -41,13 +41,11 @@ fun TopBarHome(navController: NavHostController) {
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(end = 25.dp)
+                .size(56.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = "Profile Image",
-                modifier = Modifier
-                    .size(56.dp)
-
             )
         }
 
