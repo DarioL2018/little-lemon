@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.littlelemon.little_lemon_app.data.UserPreferences
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, database: AppDatabase) {
     val isUserRegistered = UserPreferences.isUserRegistered(LocalContext.current)
 
     NavHost(
@@ -19,7 +19,7 @@ fun Navigation(navController: NavHostController) {
             Onboarding(navController = navController)
         }
         composable(Home.route) {
-            HomeScreen(navController)
+            HomeScreen(navController, database)
         }
         composable(Profile.route) {
             Profile(navController)

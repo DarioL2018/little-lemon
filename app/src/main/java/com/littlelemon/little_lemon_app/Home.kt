@@ -1,34 +1,35 @@
 package com.littlelemon.little_lemon_app
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.littlelemon.little_lemon_app.component.HeroSection
+import com.littlelemon.little_lemon_app.component.MenuItems
 import com.littlelemon.little_lemon_app.component.TopBarHome
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(navController: NavHostController, database: AppDatabase) {
+    val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
+    var filterPhrase by remember { mutableStateOf("") }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TopBarHome(navController)
-        Button(onClick = { navController.navigate("profile") }) {
-            Text("Ir a Perfil")
-        }
+        HeroSection(onSearchUpdated = { newFilter -> filterPhrase = newFilter })
+        MenuItems(databaseMenuItems, filterPhrase )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(rememberNavController())
 }
